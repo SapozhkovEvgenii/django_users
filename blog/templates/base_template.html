@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% block base_styles %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock base_styles %}
+    {% block style %}{% endblock style %}
     <title>Title</title>
 </head>
 
@@ -11,9 +14,14 @@
     {% block header %}
     {% include "blocks/header.html" %}
     {% endblock header %}
+    {% if user.is_authenticated %}
+    {{user.username}}
+    {% else %}
+    <a href="{% url 'user_login' %}">Login</a>
+    {% endif %}
 
     <div class="content">
-        {% block user_login %}{% endblock user_login %}
+        {% block user %}{% endblock user %}
     </div>
 
     <div class="fotter">

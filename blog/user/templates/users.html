@@ -1,0 +1,9 @@
+{% extends "base_template.html" %}
+
+{% block user %}
+<ul>
+    {% for u in users %}
+        <li>{{u.username}} | {{u.phone}} {% if u.is_superuser %} | Superuser {% endif %}</li>
+    {% endfor %}
+</ul>
+{% endblock user %}

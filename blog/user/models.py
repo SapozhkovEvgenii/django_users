@@ -5,10 +5,10 @@ from django.dispatch.dispatcher import receiver
 
 
 class User(AbstractUser):
-    phone = models.CharField(max_length=15, verbose_name="User phone number")  # null = True, тогда поле необязательно
+    phone = models.CharField(max_length=15, verbose_name="User phone number")  # null = True - field is not required
 
     class Meta:
-        db_table = "users"  # Создание таблицы с именем users
+        db_table = "users"  # Create a table called users
         verbose_name = "User"
         verbose_name_plural = "Users"
 
