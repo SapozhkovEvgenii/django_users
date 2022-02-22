@@ -14,9 +14,8 @@ def login(request):
     if request.method == "POST":
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            print("VALID USER")
+            login_form.auth(request)
             return redirect("all_users") 
-        print("INVALID USER")
         context.update(login_form=login_form)
     return render(request, "login.html", context)
 

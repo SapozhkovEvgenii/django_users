@@ -4,13 +4,15 @@
 {% block user %}
 
 <form action="{% url 'user_login' %}" method="post">
+
+    {% if login_form.non_field_errors %}
+    {{login_form.non_field_errors}}
+    {% endif %}
+
     {% csrf_token %}
-    {% comment %} <input type="text" name="username" id="username">
-    <input type="password" name="password" id="password"> {% endcomment %}
-    {% comment %} {{login_form}} {% endcomment %}
     <div>
-        {% if login_form.username.error %}
-        {{login_form.username.error}}
+        {% if login_form.username.errors %}
+        {{login_form.username.errors}}
         {% endif %}
         {{login_form.username}}
         <label for="">
@@ -18,7 +20,9 @@
         </label>
     </div>
     <div>
-        {% if login_form.password.error %} {{login_form.pasword.error}} {% endif %}
+        {% if login_form.password.errors %} 
+        {{login_form.pasword.errors}} 
+        {% endif %}
         {{login_form.password}}
         <label for="">
             {{login_form.password.label}}
@@ -32,9 +36,4 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock style %}
 
-{% comment "" %}
-{% block header %}
-HEADER
-{% endblock header %}
-{% endcomment %}
 
