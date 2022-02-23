@@ -12,7 +12,6 @@ class UsersView(ListView):
     template_name = "users.html"
 
 
-
 def login(request):
     context = {"login_form": LoginForm()}
     if request.method == "POST":
