@@ -2,8 +2,15 @@
 
 {% block user %}
 <ul>
-    {% for u in users %}
+    {% for u in page_obj %}
         <li>{{u.username}} | {{u.phone}} {% if u.is_superuser %} | Superuser {% endif %}</li>
     {% endfor %}
+    <a {% if  page_obj.has_previos%}href="?page1"{% endif %}> << </a>
+    <a {% if  page_obj.has_previos%}href="?page={{page_obj.previos_page_number}}"{% endif %}> < </a>
+
+    {% for num_page in page_obj.paginator.page_range %}
+    <a href="?page={{num_page}}">{{num_page}}</a>
+    {% endfor %}
+
 </ul>
 {% endblock user %}

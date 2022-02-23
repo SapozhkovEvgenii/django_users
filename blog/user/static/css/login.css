@@ -5,3 +5,8 @@ div {
 .input {
     outline-width: 3em;
 }
+
+.helptext {
+    display: none
+}
+

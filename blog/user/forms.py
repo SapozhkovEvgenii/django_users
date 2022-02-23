@@ -38,4 +38,16 @@ class LoginForm(forms.Form):
     def auth(self, request):
         login(request, self.user)
 
+class RegisterForm(forms.ModelForm):
+    password_repeat = forms.CharField(min_length=4,
+        widget=forms.PasswordInput(
+            attrs={"class": "input", "placeholder": "Password"}))
+
+    class Meta:
+        model = User
+        fields = ("username", "phone", "email", "password")
+        widgets = {"password": forms.PasswordInput(
+            attrs={"class": "input", "placeholder": "Password"})}
+
+
     
