@@ -10,6 +10,7 @@
     {% for num_page in page_obj.paginator.page_range %}
         <a href="?page={{num_page}}">{{num_page}}</a>
     {% endfor %}
+    {% comment %} {% if  page_obj %} <b> { page_obj } </b> {% endif %} {% endcomment %}
     <a {% if page_obj.has_next %}href="?page={{page_obj.next_page_number}}"{% endif %}>></a>
     <a {% if page_obj.has_next %}href="?page={{page_obj.paginator.num_pages}}"{% endif %}>>></a>
 </ul>

@@ -1,10 +1,9 @@
-from audioop import reverse
-from multiprocessing import context
 from django.shortcuts import render, HttpResponse, redirect
 from user.models import User
 from user.forms import LoginForm, RegisterForm
 import json
 from django.views.generic import ListView, FormView
+from django.contrib.auth import logout
 
 
 class UsersView(ListView):
@@ -44,8 +43,8 @@ def login(request):
 #         context.update(register_form=register_form)
 #     return render(request, "register.html", context)
 
-def user(request):
-    context = {"key": "value", "result": "True"}
-    return render(request, "login.html", context)
-    # return HttpResponse(json.dumps(context), content_type="application/json")
+def logout_user(request):
+    logout(request)
+    return redirect("all_users")
+
 
