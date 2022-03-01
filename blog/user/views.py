@@ -1,9 +1,13 @@
-from django.shortcuts import render, HttpResponse, redirect
+from http.client import HTTPResponse
+from logging import exception
+from django.shortcuts import render, redirect
 from user.models import User
 from user.forms import LoginForm, RegisterForm
 import json
 from django.views.generic import ListView, FormView
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import permission_required, login_required
+from django.http import HttpResponseNotFound, Http404
 
 
 class UsersView(ListView):
@@ -12,17 +16,19 @@ class UsersView(ListView):
     template_name = "users.html"
 
 
-class RegisterView(FormView):
-    template_name = "register.html"
-    form_class = RegisterForm
-    success_url = "/user/"
+# class RegisterView(FormView):
+#     template_name = "register.html"
+#     form_class = RegisterForm
+#     success_url = "/user/"
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.save()
+#         return super().form_valid(form)
 
 
 
+
+# @permission_required('users.add_user', raise_exception=False)
 def login(request):
     context = {"login_form": LoginForm()}
     if request.method == "POST":
@@ -33,15 +39,19 @@ def login(request):
         context.update(login_form=login_form)
     return render(request, "login.html", context)
 
-# def register(request):
-#     context = {"register_form": RegisterForm}
-#     if request.method == "POST":
-#         register_form = RegisterForm(request.POST)
-#         if register_form.is_valid:
-#             register_form.save()
-#             return redirect("all_users")
-#         context.update(register_form=register_form)
-#     return render(request, "register.html", context)
+
+def register(request):
+    context = {"register_form": RegisterForm}
+    if User.is_authenticated:
+        if request.method == "POST":
+            register_form = RegisterForm(request.POST)
+            if register_form.is_valid:
+                register_form.save()
+                return redirect("all_users")
+            context.update(register_form=register_form)
+    
+    # return HttpResponseNotFound('<h1>This page is not available for authorized users</h1>')
+    return render(request, "register.html", context)
 
 def logout_user(request):
     logout(request)

@@ -5,7 +5,7 @@
 
 <form action="{% url 'register_user' %}" method="post">
     {% csrf_token %}
-    {{form}}
+    {{register_form}}
     <input type="submit" value="registration">
 </form>
 {% endblock user %}
