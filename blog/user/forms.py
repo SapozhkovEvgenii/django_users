@@ -16,15 +16,6 @@ class LoginForm(forms.Form):
         )
     )
 
-    # def clean(self):
-    #     errors = False
-    #     if self.cleaned_data["username"] == "admin":
-    #         errors = True
-    #         self.add_error("username", "INVALID USER!!!")
-    #     if errors:
-    #         raise forms.ValidationError("ERROR")
-    #     return self.cleaned_data
-
     def clean(self):
         user = authenticate(**dict(self.cleaned_data))
         if user is not None:
