@@ -1,0 +1,40 @@
+from django.db import models
+from user.models import User
+from django.db.models.signals import pre_save
+from django.dispatch.dispatcher import receiver
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=256, unique=True, verbose_name="Post title")
+    tags = models.ManyToManyField("Tag", related_name="posts")
+    author = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE, verbose_name="Post author")
+    text = models.TextField(verbose_name="Post data")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Post created")
+    updated = models.DateField(auto_now=True, verbose_name="Post updated")
+    is_moderated = models.BooleanField(default=False)
+    views = models.BigIntegerField(default=0)
+
+    def __str__(self) -> str:
+        return (self.title[:20] + "...") if len(self.title) > 20 else self.title
+
+    class Meta:
+        db_table = "posts"
+        verbose_name = "Post"
+
+
+class Tag(models.Model):
+    value = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return self.value
+
+    class Meta:
+        db_table = "tags"
+        verbose_name = "Tag"
+
+@receiver(pre_save, sender=Tag)
+def sharp(sender, instance, **kwargs):
+    if instance.value[0] != "#":
+        instance.value = "#" + instance.value
+
+

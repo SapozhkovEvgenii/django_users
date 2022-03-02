@@ -6,8 +6,8 @@ from user.forms import LoginForm, RegisterForm
 import json
 from django.views.generic import ListView, FormView
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import permission_required, login_required
-from django.http import HttpResponseNotFound, Http404
+# from django.contrib.auth.decorators import permission_required, login_required
+# from django.http import HttpResponseNotFound, Http404
 
 
 class UsersView(ListView):
