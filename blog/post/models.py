@@ -1,16 +1,18 @@
 from django.db import models
 from user.models import User
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, pre_delete
 from django.dispatch.dispatcher import receiver
 from datetime import datetime
 from random import randint
+import os
+from django.conf import settings
 
 
 class Post(models.Model):
 
     def file_path(self, filename):
         file_type = filename.split(".")[-1]
-        path_file = datetime.strftime(datetime.now, "post/%Y/%m/%d/%H")
+        path_file = datetime.strftime(datetime.now(), "post/%Y/%m/%d/%H/")
         return path_file + str(randint(100000000, 999999999)) + "." + file_type
 
     title = models.CharField(max_length=256, unique=True, verbose_name="Post title")
@@ -48,5 +50,12 @@ class Tag(models.Model):
 def sharp(sender, instance, **kwargs):
     if instance.value[0] != "#":
         instance.value = "#" + instance.value
+
+@receiver(pre_delete, sender=Post)
+def delete_image(sender, instance, **kwargs):
+    path_to_file = settings.BASE_DIR/"blog"/str(instance.image.path)
+    path_to_file.unlink()
+
+
 
 

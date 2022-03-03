@@ -61,6 +61,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -115,6 +116,10 @@ STATICFILES_DIRS = [
     BASE_DIR/"user"/"static",
     BASE_DIR/"blog"/"static",
 ]
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR/"blog"/"media"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
