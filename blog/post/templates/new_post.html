@@ -1,7 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_template.html" %}
 
 {% block post %}
-<form method="post" action="{% url new_post %}" enctype="multipart/form-data">
-    {{form}}
-</form>
+    {% csrf_token %}
+    <form method="post" action="{% url 'new_post' %}" enctype="multipart/form-data">
+        {{form}}
+    </form>
 {% endblock post %}
+
