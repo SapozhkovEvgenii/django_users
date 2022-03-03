@@ -1,18 +1,19 @@
 {% extends "base_template.html" %}
 {% block post %}
 
-{% for post in page.obj in  %}
-    <p>{{post.author.first_name}} {{post.author.last_name}}</p>
+{% for post in page_obj %}
+    <p>{{post.author}}</p>
+    <img src="{{post.image.url}}"/>
     <h2>{{post.title}}</h2>
     <ul>
-        <li><a href=""></a></li>
+    {% for t in post.tags.all %}
+        <li><a href="">{{t.value}}</a></li>
+    {% endfor %}
     </ul>
     <p>{{post.created}}</p>
-    <p>{{post.view}}</p>
+    <p>{{post.views}}</p>
     <p>{{post.text}}</p>
-{% include "blocks/pages.html" %}
-
 {% endfor %}
-
+{% include "blocks/pages.html" %}
 
 {% endblock post %}

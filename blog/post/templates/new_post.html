@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block post %}
+<form method="post" action="{% url new_post %}" enctype="multipart/form-data">
+    {{form}}
+</form>
+{% endblock post %}

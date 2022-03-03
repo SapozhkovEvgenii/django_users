@@ -10,5 +10,5 @@ class PostsView(ListView):
     template_name = "all_records.html"
 
 
-# def new_post(request):
-#     context = {"form": PostForm()}
+def new_post(request):
+    context = {"form": PostForm()}
