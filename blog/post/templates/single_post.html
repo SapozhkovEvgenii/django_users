@@ -13,5 +13,8 @@
     <p>{{post.created}}</p>
     <p>{{post.views}}</p>
     <p>{{post.text}}</p>
+    {% if back %}
+    <a href="{{back}}">Back</a>
+    {% endif %}
 
 {% endblock post %}

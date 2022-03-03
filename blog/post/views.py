@@ -29,6 +29,8 @@ def single_post(request, pk):
         }
     except Post.DoesNotExist:
         raise Http404("Post not found")
+    if request.META.get("HTTP_REFERER"):
+        context.update(back=request.META["HTTP_REFERER"])
     context["post"].views += 1
     context["post"].save()
     return render(request, "single_post.html", context)
